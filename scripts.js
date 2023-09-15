@@ -1,7 +1,9 @@
 import data from './data.js'
 
-const itemsContainer = document.querySelector('#items')
-
+const itemsContainer = document.querySelector('#items');
+const itemList = document.getElementById('item-list');
+const cartQty = document.getElementById('cart-qty');
+const cartTotal = document.getElementById('cart-total')
 
 // the length of our data determines how many times this loop goes around
 data.forEach(function (gif, index) {
@@ -77,12 +79,26 @@ const showItems = () => {
     const qty = getQty()
     const total = getTotal()
 
-    console.log(`You have ${qty} items in your cart.`)
+    //console.log(`You have ${qty} items in your cart.`)
+    cartQty.innerHTML = `You have ${qty} items in your cart.`
+
+    let itemStr = ''
+    
 
     for (let i = 0; i < cart.length; i += 1) {
-        console.log(`- ${cart[i].name} ${cart[i].price} x ${cart[i].qty}`)
+        // console.log(`- ${cart[i].name} ${cart[i].price} x ${cart[i].qty}`)
+        // const name = cart[i].name
+        // const price = cart[i].price
+        // const qty = cart[i].qty
+
+        const { name, price, qty} = cart[i]
+
+        itemStr += `<li> ${name} ${price} x ${qty} = ${qty * price} </li>`
     }
-    console.log(`Total in cart: ${total}`)
+
+    itemList.innerHTML = itemStr
+    //console.log(`Total in cart: ${total}`)
+    cartTotal.innerHTML = `Total in cart: ${total}`
 }
 
 // Get Quantity
@@ -128,4 +144,7 @@ showItems()
 
 removeItem('Apple', 2)
 
-showItems()
+
+showItems(itemList.innerHTML)
+
+
