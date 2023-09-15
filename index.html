@@ -5,11 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel='stylesheet' href='styles.css'>
-</head>
+    <script>
+      window.addEventListener('scroll', function() {
+        // Code to check if the page has scrolled past a certain point
+        var navElement = document.getElementById('nav');
+        var scrollPosition = window.scrollY;
+    
+        // Define the scroll threshold (in pixels)
+        var scrollThreshold = 50;
+    
+        if (scrollPosition >= scrollThreshold) {
+          navElement.classList.add('nav_fade');
+        } else {
+          navElement.classList.remove('nav_fade');
+        }
+      });
+    </script>
+    <script src="scripts.js" type="module"></script>
+  </head>
 <body>
     <header class='page-header'>
         <h4>The Mood Shop</h4>
-        <nav>
+        <nav id="nav">
           <ul>
             <li><a href="#">Home</a></li>
             <li><a href="#">About</a></li>
@@ -17,5 +34,8 @@
           </ul>
         </nav>
       </header>
+      <div class='items' id='items'>
+        <!-- Display moods here -->
+    </div>
 </body>
 </html>
