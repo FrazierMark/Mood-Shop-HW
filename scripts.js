@@ -42,12 +42,6 @@ data.forEach(function (gif, index) {
 
 });
 
-const all_items_button = Array.from(document.querySelectorAll("button"))
-console.log(all_items_button)
-all_items_button.forEach(elt => elt.addEventListener('click', () => {
-    addItem(elt.getAttribute('id'), elt.getAttribute('data-price'))
-    showItems()
-  }))
 
 
 window.addEventListener('scroll', function() {
@@ -68,19 +62,48 @@ window.addEventListener('scroll', function() {
 
 const cart = []
 
+// Handle Change events on update input
+itemList.onchange = function(evt) {
+    if (evt.target && evt.target.classList.contains('update')) {
+        const name = evt.target.dataset.name
+        const qty = parseInt(evt.target.value)
+        updateCart(name, qty)
+    }
+}
+
+
+// Handle clicks on list
+itemList.onclick = function(evt) {
+    // console.log("Click list!!")
+    // console.log(evt.target)
+    if(evt.target && evt.target.classList.contains('remove')) {
+        const name = evt.target.dataset.name
+        removeItem(name)
+    } else if (evt.target && evt.target.classList.contains('add-one')) {
+        const name = evt.target.dataset.name;
+        const price = evt.target.dataset.price;
+        addItem(name, price)
+    } else if (evt.target && evt.target.classList.contains('remove-one')) {
+        const name = evt.target.dataset.name
+        removeItem(name, 1)
+    }
+}
+
 // Add Item
 const addItem = (name, price) => {
-    
     for (let i = 0; i < cart.length; i += 1){
         if (cart[i].name === name) {
             cart[i].qty += 1
+            showItems()
             return
         }
     }
-
     const item = {name, price, qty: 1}
     cart.push(item)
+    showItems()
+    
 }
+
 
 // Show Items
 const showItems = () => {
@@ -92,7 +115,6 @@ const showItems = () => {
 
     let itemStr = ''
     
-
     for (let i = 0; i < cart.length; i += 1) {
         // console.log(`- ${cart[i].name} ${cart[i].price} x ${cart[i].qty}`)
         // const name = cart[i].name
@@ -101,13 +123,21 @@ const showItems = () => {
 
         const { name, price, qty} = cart[i]
 
-        itemStr += `<li> ${name} ${price} x ${qty} = ${qty * price} </li>`
+        itemStr += `<li> 
+        ${name} ${price} x ${qty} = ${qty * price} 
+        <button class="remove" data-name="${name}">Remove</button>
+        <button class="add-one" data-name="${name}"> + </button>
+        <button class="remove-one" data-name="${name}"> - </button>
+        <input class="update" type="number" data-name="${name}">
+        </li>`
     }
 
     itemList.innerHTML = itemStr
     //console.log(`Total in cart: ${total}`)
     cartTotal.innerHTML = `Total in cart: ${total}`
 }
+
+
 
 // Get Quantity
 const getQty = () => {
@@ -117,6 +147,8 @@ const getQty = () => {
     }
     return qty
 }
+
+
 
 // Get total
 const getTotal = () => {
@@ -133,26 +165,39 @@ const removeItem = (name, qty = 0) => {
             if (qty > 0) {
                 cart[i].qty -= qty
             }
-
             if(cart[i].qty < 1 || qty === 0) {
                 cart.splice(i, 1)
             }
+            showItems()
             return
         }
     }
 }
 
-addItem('Apple', 0.99)
-addItem('Apple', 0.99)
-addItem('Orange', 4.99)
-addItem('Taco', 4.99)
-addItem('Orange', 4.99)
-addItem('Apple', 0.99)
-showItems()
+// 
+function updateCart(name, qty) {
+    for (let i = 0; i < cart.length; i++) {
+        if(cart[i].name === name) {
 
-removeItem('Apple', 2)
+            if (qty < 1) {
+                removeItem(name)
+                return
+            }
+            cart[i].qty = qty
+            showItems()
+            return
+        }
+    }
+}
 
 
 showItems(itemList.innerHTML)
 
 
+
+const all_items_button = Array.from(document.querySelectorAll("button"))
+//console.log(all_items_button)
+all_items_button.forEach(elt => elt.addEventListener('click', () => {
+    addItem(elt.getAttribute('id'), elt.getAttribute('data-price'))
+    showItems()
+  }))
