@@ -3,7 +3,7 @@ import data from './data.js'
 const itemsContainer = document.querySelector('#items');
 const itemList = document.getElementById('item-list');
 const cartQty = document.getElementById('cart-qty');
-const cartTotal = document.getElementById('cart-total')
+const cartTotal = document.getElementById('cart-total');
 
 // the length of our data determines how many times this loop goes around
 data.forEach(function (gif, index) {
@@ -41,6 +41,14 @@ data.forEach(function (gif, index) {
     newDiv.appendChild(button)
 
 });
+
+const all_items_button = Array.from(document.querySelectorAll("button"))
+console.log(all_items_button)
+all_items_button.forEach(elt => elt.addEventListener('click', () => {
+    addItem(elt.getAttribute('id'), elt.getAttribute('data-price'))
+    showItems()
+  }))
+
 
 window.addEventListener('scroll', function() {
     // Code to check if the page has scrolled past a certain point
