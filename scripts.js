@@ -19,16 +19,17 @@ data.forEach(function (gif, index) {
 	console.log(img) // Check the console!
 	itemsContainer.appendChild(newDiv)
 
-    const description = document.createElement('p');
+
+    const description = document.createElement('P');
     description.className = 'description';
     description.innerText = gif.desc;
 
-    const price = document.createElement('p');
+    const price = document.createElement('P');
     price.className = 'price';
     price.innerText = gif.price
 
-    itemsContainer.appendChild(description)
-    itemsContainer.appendChild(price)
+    newDiv.appendChild(description)
+    newDiv.appendChild(price)
 
     const button = document.createElement('button')
     button.id = gif.name
@@ -38,3 +39,18 @@ data.forEach(function (gif, index) {
     newDiv.appendChild(button)
 
 });
+
+window.addEventListener('scroll', function() {
+    // Code to check if the page has scrolled past a certain point
+    var navElement = document.getElementById('header');
+    var scrollPosition = window.scrollY;
+
+    // Define the scroll threshold (in pixels)
+    var scrollThreshold = 50;
+
+    if (scrollPosition >= scrollThreshold) {
+      navElement.classList.add('nav_fade');
+    } else {
+      navElement.classList.remove('nav_fade');
+    }
+  });

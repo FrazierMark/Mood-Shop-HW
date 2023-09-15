@@ -12,14 +12,16 @@ body {
   background-color: rgba(252, 87, 224, 0.474);
   scroll-behavior: smooth;
   z-index: 1;
+  position: fixed;
   align-items: center;
   font-family: Arial, Helvetica, sans-serif;
-  padding: 1em;
+  padding: 0 10px;
+  margin-bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   transition-timing-function: ease-in;
   transition: all 0.5s;
-  @media only screen and (min-width: 375px) and (max-width: 832px) {
-    justify-content: space-around;
-  }
 }
 
 .page-header ul {
@@ -41,4 +43,36 @@ body {
   -webkit-backdrop-filter: blur(5px);
   border-bottom: 0.5px solid rgba(214, 212, 212, 0.802);
   border: none;
+}
+
+.items {
+  
+  width: 80%;
+  margin: auto;
+  margin-top: 6em;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 1em;
+}
+
+.items img {
+  width: 100%;
+  height: auto;
+}
+
+.item {
+  border-style: solid;
+}
+
+.description {
+  padding: 1em;
+}
+
+.price {
+  padding: 1em;
+}
+
+button {
+  padding: .5em;
+  margin: 1em;
 }
