@@ -16,7 +16,7 @@ data.forEach(function (gif, index) {
 	img.height = 300
 	// Add the image to the div
 	newDiv.appendChild(img)
-	console.log(img) // Check the console!
+	//console.log(img) // Check the console!
 	itemsContainer.appendChild(newDiv)
 
 
@@ -54,3 +54,19 @@ window.addEventListener('scroll', function() {
       navElement.classList.remove('nav_fade');
     }
   });
+
+
+const cart = []
+
+const addItem = (name, price) => {
+    const item = {name: name, price: price, qty: 1}
+    cart.push(item)
+}
+
+const showItems = () => {
+    console.log(`You have ${cart.length} items in your cart.`)
+}
+
+addItem('Apple', 0.99)
+addItem('Apple', 1.99)
+showItems()
