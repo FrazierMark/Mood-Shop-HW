@@ -58,6 +58,7 @@ window.addEventListener('scroll', function() {
 
 const cart = []
 
+// Add Item
 const addItem = (name, price) => {
     
     for (let i = 0; i < cart.length; i += 1){
@@ -102,10 +103,29 @@ const getTotal = () => {
     return total.toFixed(2)
 }
 
+const removeItem = (name, qty = 0) => {
+    for (let i = 0; i < cart.length; i += 1) {
+        if (cart[i].name === name) {
+            if (qty > 0) {
+                cart[i].qty -= qty
+            }
+
+            if(cart[i].qty < 1 || qty === 0) {
+                cart.splice(i, 1)
+            }
+            return
+        }
+    }
+}
+
 addItem('Apple', 0.99)
 addItem('Apple', 0.99)
 addItem('Orange', 4.99)
 addItem('Taco', 4.99)
 addItem('Orange', 4.99)
 addItem('Apple', 0.99)
+showItems()
+
+removeItem('Apple', 2)
+
 showItems()
