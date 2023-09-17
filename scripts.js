@@ -10,15 +10,13 @@ data.forEach(function (gif, index) {
 	// create a new div element and give it a class name
 	const newDiv = document.createElement('div');
 	newDiv.className = 'item'
-	// create an image element
+
 	const img = document.createElement('img');
-	// this will change each time we go through the loop. Can you explain why?
 	img.src = gif.image
 	img.width = 300
 	img.height = 300
 	// Add the image to the div
 	newDiv.appendChild(img)
-	//console.log(img) // Check the console!
 	itemsContainer.appendChild(newDiv)
 
 
@@ -42,8 +40,6 @@ data.forEach(function (gif, index) {
 
 });
 
-
-
 window.addEventListener('scroll', function() {
     // Code to check if the page has scrolled past a certain point
     var navElement = document.getElementById('header');
@@ -59,7 +55,6 @@ window.addEventListener('scroll', function() {
     }
   });
 
-
 const cart = []
 
 // Handle Change events on update input
@@ -70,7 +65,6 @@ itemList.onchange = function(evt) {
         updateCart(name, qty)
     }
 }
-
 
 // Handle clicks on list
 itemList.onclick = function(evt) {
@@ -104,23 +98,16 @@ const addItem = (name, price) => {
     
 }
 
-
 // Show Items
 const showItems = () => {
     const qty = getQty()
     const total = getTotal()
 
-    //console.log(`You have ${qty} items in your cart.`)
     cartQty.innerHTML = `You have ${qty} items in your cart.`
 
     let itemStr = ''
     
     for (let i = 0; i < cart.length; i += 1) {
-        // console.log(`- ${cart[i].name} ${cart[i].price} x ${cart[i].qty}`)
-        // const name = cart[i].name
-        // const price = cart[i].price
-        // const qty = cart[i].qty
-
         const { name, price, qty} = cart[i]
 
         itemStr += `<li> 
@@ -131,13 +118,10 @@ const showItems = () => {
         <input class="update" type="number" data-name="${name}">
         </li>`
     }
-
     itemList.innerHTML = itemStr
     //console.log(`Total in cart: ${total}`)
     cartTotal.innerHTML = `Total in cart: ${total}`
 }
-
-
 
 // Get Quantity
 const getQty = () => {
@@ -147,8 +131,6 @@ const getQty = () => {
     }
     return qty
 }
-
-
 
 // Get total
 const getTotal = () => {
@@ -174,7 +156,6 @@ const removeItem = (name, qty = 0) => {
     }
 }
 
-// 
 function updateCart(name, qty) {
     for (let i = 0; i < cart.length; i++) {
         if(cart[i].name === name) {
@@ -190,10 +171,7 @@ function updateCart(name, qty) {
     }
 }
 
-
 showItems(itemList.innerHTML)
-
-
 
 const all_items_button = Array.from(document.querySelectorAll("button"))
 //console.log(all_items_button)
